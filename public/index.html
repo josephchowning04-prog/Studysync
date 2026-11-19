@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StudySync is a CS-215 AI Literacy project for studying with your own course materials.">
+  <title>StudySync</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="study-rules.js" defer></script>
+  <script src="study.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <p class="course">CS-215 AI Literacy Final Project</p>
+      <h1>StudySync</h1>
+      <p>Turn your course notes into flashcards, practice quizzes, and study guides with local AI.</p>
+    </header>
+
+    <div class="workspace">
+      <section class="materials" aria-labelledby="materials-heading">
+        <h2 id="materials-heading">Study materials</h2>
+        <p>Paste your notes or load a biology example to try the preview.</p>
+        <form id="study-form" novalidate>
+          <label for="study-title">Subject or title</label>
+          <input id="study-title" type="text" maxlength="120" required>
+          <p id="title-error" class="field-error" hidden>Enter a subject or title.</p>
+
+          <label for="study-notes">Study notes</label>
+          <textarea id="study-notes" rows="5" maxlength="12000" required></textarea>
+          <p id="notes-error" class="field-error" hidden>Enter some study notes.</p>
+
+          <div class="form-actions">
+            <button type="submit">Preview Notes</button>
+            <button id="load-sample" type="button">Load Sample Notes</button>
+            <button id="save-set" type="button">Save Study Set</button>
+            <button id="new-set" type="button" hidden>New Study Set</button>
+          </div>
+        </form>
+        <div class="pdf-tools">
+          <label for="pdf-file">Import a text-based PDF</label>
+          <p id="pdf-help">Up to 2 MB and 30 pages. Extracted text appears in the notes field for review.</p>
+          <input id="pdf-file" type="file" accept=".pdf,application/pdf" aria-describedby="pdf-help">
+          <button id="import-pdf" type="button">Extract PDF Text</button>
+        </div>
+        <p id="form-status" class="form-status" role="status"></p>
+
+        <section id="notes-preview" aria-labelledby="preview-heading" hidden>
+          <h3 id="preview-heading">Notes preview</h3>
+          <h4 id="preview-title"></h4>
+          <p id="preview-count"></p>
+          <p id="preview-text"></p>
+        </section>
+      </section>
+
+      <section class="panel" aria-labelledby="sets-heading">
+        <h2 id="sets-heading">Saved study sets</h2>
+        <form id="search-form" class="form-actions">
+          <label for="set-search">Search by title</label>
+          <input id="set-search" type="search" maxlength="120">
+          <button type="submit">Search</button>
+        </form>
+        <p id="sets-status" class="form-status" role="status"></p>
+        <ul id="set-list" class="set-list"></ul>
+      </section>
+    </div>
+
+    <section class="options" aria-labelledby="options-heading">
+      <h2 id="options-heading">Study options</h2>
+      <p id="ai-status" class="form-status" role="status">Checking Ollama…</p>
+      <div class="form-actions study-settings">
+        <button id="check-ai" type="button">Check AI Status</button>
+        <label for="item-count">Items to generate</label>
+        <select id="item-count">
+          <option>2</option>
+          <option selected>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+        </select>
+      </div>
+      <p id="study-source" class="form-status">Open or save a study set to generate AI material. Demo uses the fictional biology sample.</p>
+      <ul class="option-grid">
+        <li>
+          <h3>Flashcards</h3>
+          <p>Review key terms and concepts.</p>
+          <div class="card-actions">
+            <button type="button" data-generate="cards" disabled>Generate Flashcards</button>
+            <button type="button" data-demo="cards">Try Demo Flashcards</button>
+          </div>
+        </li>
+        <li>
+          <h3>Practice Quiz</h3>
+          <p>Check your understanding with multiple-choice questions.</p>
+          <div class="card-actions">
+            <button type="button" data-generate="quiz" disabled>Generate Quiz</button>
+            <button type="button" data-demo="quiz">Try Demo Quiz</button>
+          </div>
+        </li>
+        <li>
+          <h3>Study Guide</h3>
+          <p>Review key concepts, definitions, and summaries from your notes.</p>
+          <div class="card-actions">
+            <button type="button" data-generate="guide" disabled>Generate Study Guide</button>
+            <button type="button" data-demo="guide">Try Demo Study Guide</button>
+          </div>
+        </li>
+        <li>
+          <h3>Progress</h3>
+          <p>Track what you’ve reviewed over time.</p>
+          <div class="card-actions">
+            <button id="view-progress" type="button" disabled>View Set Progress</button>
+          </div>
+        </li>
+      </ul>
+      <p id="study-status" class="form-status" role="status"></p>
+    </section>
+    <section id="study-session" class="panel session" aria-labelledby="session-heading" hidden>
+      <h2 id="session-heading" tabindex="-1">Study session</h2>
+      <p id="session-source"></p>
+      <p id="review-notice" hidden>AI-generated material can be wrong. Check the answers and source excerpts against your notes.</p>
+      <div id="session-body"></div>
+    </section>
+    <section id="progress-panel" class="panel" aria-labelledby="progress-heading" hidden>
+      <h2 id="progress-heading" tabindex="-1">Study progress</h2>
+      <p id="progress-status" class="form-status" role="status"></p>
+      <ul id="progress-list" class="progress-list"></ul>
+      <button id="reset-progress" type="button" hidden>Reset Progress</button>
+    </section>
+  </main>
+</body>
+</html>

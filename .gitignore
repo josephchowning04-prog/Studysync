@@ -1,0 +1,27 @@
+node_modules/
+
+# Environment files and local credentials
+.env
+.env.*
+.aws/
+credentials
+credentials.*
+secrets/
+secrets.*
+*.key
+*.pem
+
+# Local database files and sidecars
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Machine-local artifacts and database exports
+.DS_Store
+coverage/
+*.dump
+*.sql.gz
+*.sqlite-backup

@@ -1,0 +1,22 @@
+{
+  "name": "studysync",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CS-215 AI Literacy study companion",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test",
+    "test:browser": "node scripts/browser-smoke.js",
+    "compare:prompts": "node scripts/compare-prompts.js",
+    "test:ollama": "node scripts/ollama-smoke.js"
+  },
+  "engines": {
+    "node": "^22.13.0 || ^24.0.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pdfjs-dist": "^6.5.438",
+    "pg": "^8.23.1"
+  }
+}
